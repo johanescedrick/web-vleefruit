@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-leaf-950: #0f2a1c;
+  --color-leaf-900: #163a27;
+  --color-leaf-800: #1d4a32;
+  --color-leaf-700: #255e40;
+  --color-leaf-500: #3f8a5f;
+  --color-leaf-200: #cfe3d3;
+  --color-leaf-100: #e4efe6;
+  --color-cream: #faf7f0;
+  --color-paper: #ffffff;
+  --color-ink: #1b231e;
+  --color-muted: #5d6b62;
+  --color-line: #dfe4dc;
+  --color-mango: #e8892b;
+  --color-mango-100: #fbe9d4;
+  --color-berry: #c2412d;
+
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-instrument);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-mango);
+  color: #fff;
+}
+
+/* Big outlined text that scrolls behind section titles */
+.ghost-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.ghost-text {
+  font-family: var(--font-bricolage);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-leaf-200);
+  white-space: nowrap;
+  line-height: 1;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Fruit travelling along the conveyor in the hero illustration */
+.belt-item {
+  animation: belt 9s linear infinite;
+}
+@keyframes belt {
+  from {
+    transform: translateX(-60px);
+  }
+  to {
+    transform: translateX(520px);
+  }
+}
+.belt-stripes {
+  animation: stripes 0.9s linear infinite;
+}
+@keyframes stripes {
+  to {
+    transform: translateX(-24px);
+  }
+}
+.scan-line {
+  animation: scan 1.8s ease-in-out infinite alternate;
+}
+@keyframes scan {
+  from {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  to {
+    transform: translateY(46px);
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-marquee,
+  .belt-item,
+  .belt-stripes,
+  .scan-line {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
