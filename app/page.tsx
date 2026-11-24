@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Logo from "@/components/Logo";
 import ConveyorArt from "@/components/ConveyorArt";
@@ -17,11 +18,15 @@ function Ghost({ text }: { text: string }) {
 
 function SectionTitle({ eyebrow, title, ghost }: { eyebrow: string; title: string; ghost: string }) {
   return (
-    <div className="relative">
-      <Ghost text={ghost} />
-      <div className="mx-auto -mt-6 max-w-6xl px-4 sm:-mt-10 sm:px-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-mango">{eyebrow}</p>
-        <h2 className="mt-2 max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-tight text-leaf-900 sm:text-[56px]">
+    <div>
+      <p className="mx-auto max-w-6xl px-4 text-sm font-semibold uppercase tracking-[0.14em] text-mango sm:px-6">
+        {eyebrow}
+      </p>
+      <div className="mt-2">
+        <Ghost text={ghost} />
+      </div>
+      <div className="relative mx-auto -mt-9 max-w-6xl px-4 sm:-mt-16 sm:px-6">
+        <h2 className="max-w-2xl text-balance font-display text-[34px] font-bold leading-[1.08] tracking-tight text-leaf-900 sm:text-[56px]">
           {title}
         </h2>
       </div>
@@ -81,11 +86,11 @@ const segments = [
 ];
 
 const team = [
-  ["Villyan Sutanto", "CEO", "Visi, strategi bisnis, kemitraan"],
-  ["Marco Linardi", "CTO", "Deep learning, computer vision, IoT"],
-  ["Johanes Cedrick Wijaya", "COO", "Produksi perangkat, instalasi, purna jual"],
-  ["Shana Grace Sitompul", "CMO", "Riset pasar, kampanye, relasi pelanggan"],
-  ["Cecilia Aileen Setiawan", "CFO", "Perencanaan keuangan, profitabilitas langganan"],
+  ["Villyan Sutanto", "CEO", "Visi, strategi bisnis, kemitraan", "/team/villyan.webp"],
+  ["Marco Linardi", "CTO", "Deep learning, computer vision, IoT", "/team/marco.webp"],
+  ["Johanes Cedrick Wijaya", "COO", "Produksi perangkat, instalasi, purna jual", "/team/johanes.webp"],
+  ["Shana Grace Sitompul", "CMO", "Riset pasar, kampanye, relasi pelanggan", "/team/shana.webp"],
+  ["Cecilia Aileen Setiawan", "CFO", "Perencanaan keuangan, profitabilitas langganan", "/team/cecilia.webp"],
 ];
 
 const faqs = [
@@ -107,14 +112,6 @@ const faqs = [
   ],
 ];
 
-function initials(name: string) {
-  return name
-    .split(" ")
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("");
-}
-
 export default function Home() {
   return (
     <>
@@ -131,7 +128,7 @@ export default function Home() {
         {/* HERO */}
         <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-12 sm:px-6 md:grid-cols-[1.05fr_1fr] md:pt-20">
           <div>
-            <h1 className="font-display text-[52px] font-extrabold leading-[0.95] tracking-tight text-leaf-900 sm:text-[80px]">
+            <h1 className="font-display text-[44px] font-extrabold leading-[0.98] tracking-tight text-leaf-900 min-[400px]:text-[50px] sm:text-[72px] lg:text-[80px]">
               Sortir buah,
               <br />
               <span className="text-mango">tanpa</span> tebak&#8209;tebakan.
@@ -202,6 +199,42 @@ export default function Home() {
           </div>
         </section>
 
+        {/* PROTOTYPE */}
+        <section id="prototipe" className="scroll-mt-20 bg-paper py-20">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 md:grid-cols-[1.4fr_1fr]">
+            <figure>
+              <div className="relative aspect-[16/9] overflow-hidden rounded-3xl bg-leaf-100">
+                <Image
+                  src="/prototype.webp"
+                  alt="Prototipe VleeFruit: tiang kamera di atas jalur luncur buah, servo, dan sekat wadah terima dan tolak"
+                  fill
+                  sizes="(min-width: 768px) 640px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-3 text-sm text-muted">Prototipe pertama, dirakit dari papan corrugated.</figcaption>
+            </figure>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-mango">Prototipe</p>
+              <h2 className="mt-2 text-balance font-display text-[34px] font-bold leading-[1.08] tracking-tight text-leaf-900 sm:text-5xl">
+                Bukan cuma konsep, alatnya sudah ada.
+              </h2>
+              <ul className="mt-6 divide-y divide-line border-y border-line">
+                {[
+                  ["Tiang kamera", "Kamera dipasang di atas jalur supaya setiap buah terpotret dari sudut yang sama."],
+                  ["Jalur luncur", "Buah bergerak satu per satu melewati area foto."],
+                  ["Servo penyortir", "Setelah model memberi hasil, servo menggerakkan sekat ke jalur terima atau tolak."],
+                ].map(([t, d]) => (
+                  <li key={t} className="py-4">
+                    <p className="font-semibold text-leaf-900">{t}</p>
+                    <p className="mt-1 leading-relaxed text-muted">{d}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
         {/* DETECTIONS */}
         <section id="deteksi" className="scroll-mt-20 bg-leaf-900 py-20 text-cream">
           <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 md:grid-cols-2">
@@ -217,9 +250,9 @@ export default function Home() {
             </div>
             <ul>
               {detections.map(([t, d]) => (
-                <li key={t} className="flex items-baseline justify-between gap-6 border-b border-leaf-700 py-5">
-                  <span className="font-display text-2xl font-bold">{t}</span>
-                  <span className="text-right text-leaf-200">{d}</span>
+                <li key={t} className="flex flex-col gap-1 border-b border-leaf-700 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <span className="shrink-0 font-display text-2xl font-bold">{t}</span>
+                  <span className="text-leaf-200 sm:text-right">{d}</span>
                 </li>
               ))}
             </ul>
@@ -231,7 +264,7 @@ export default function Home() {
           <SectionTitle eyebrow="Dashboard" title="Kualitas yang bisa dibuka lagi kapan saja." ghost="dashboard" />
           <div className="mx-auto mt-12 max-w-6xl px-4 sm:px-6">
             <div className="overflow-hidden rounded-3xl border border-line bg-paper shadow-[0_30px_60px_-30px_rgba(22,58,39,0.25)]">
-              <div className="flex items-center justify-between border-b border-line px-5 py-3 text-sm">
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-line px-5 py-3 text-sm">
                 <span className="font-semibold text-leaf-900">Batch #0412 · Pisang Cavendish</span>
                 <span className="flex items-center gap-2 text-muted">
                   <span className="h-2 w-2 rounded-full bg-leaf-500" /> Perangkat VF-01 aktif
@@ -330,16 +363,16 @@ export default function Home() {
         {/* PRICING */}
         <section id="harga" className="scroll-mt-20 py-20">
           <SectionTitle eyebrow="Harga" title="Beli alatnya sekali, langganan sesuai buahnya." ghost="harga" />
-          <div className="mx-auto mt-12 grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2">
+          <div className="mx-auto mt-12 grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2 [&>*]:min-w-0">
             <div className="space-y-8">
               <div className="border-l-4 border-mango pl-5">
                 <p className="text-muted">Perangkat sortir IoT</p>
-                <p className="font-display text-5xl font-bold text-leaf-900">Rp2.000.000</p>
+                <p className="font-display text-[40px] sm:text-5xl font-bold text-leaf-900">Rp2.000.000</p>
                 <p className="mt-1 text-muted">sekali bayar, per unit</p>
               </div>
               <div className="border-l-4 border-leaf-500 pl-5">
                 <p className="text-muted">Langganan model AI</p>
-                <p className="font-display text-5xl font-bold text-leaf-900">Rp500.000</p>
+                <p className="font-display text-[40px] sm:text-5xl font-bold text-leaf-900">Rp500.000</p>
                 <p className="mt-1 text-muted">per jenis buah, per bulan. Sudah termasuk dashboard dan pembaruan model.</p>
               </div>
               <p className="max-w-md leading-relaxed text-muted">
@@ -372,16 +405,26 @@ export default function Home() {
         {/* TEAM */}
         <section id="tim" className="scroll-mt-20 py-20">
           <SectionTitle eyebrow="Tim" title="Orang-orang di balik VleeFruit." ghost="tim kami" />
-          <div className="mx-auto mt-12 grid max-w-6xl grid-cols-2 gap-6 px-4 sm:px-6 md:grid-cols-5">
-            {team.map(([name, role, focus]) => (
-              <div key={name}>
-                <div className="grid aspect-square place-items-center rounded-2xl bg-leaf-200 font-display text-4xl font-bold text-leaf-800">
-                  {initials(name)}
+          <div className="mx-auto mt-12 grid max-w-6xl grid-cols-2 gap-x-4 gap-y-8 px-4 sm:grid-cols-3 sm:gap-x-6 sm:px-6 lg:grid-cols-5">
+            {team.map(([name, role, focus, photo]) => (
+              <figure key={name} className="min-w-0">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-leaf-200">
+                  <Image
+                    src={photo}
+                    alt={`Foto ${name}`}
+                    fill
+                    sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw"
+                    className="object-cover"
+                  />
+                  <span className="absolute left-3 top-3 rounded-full bg-cream px-2.5 py-0.5 text-xs font-bold text-leaf-900">
+                    {role}
+                  </span>
                 </div>
-                <p className="mt-3 font-semibold leading-snug text-leaf-900">{name}</p>
-                <p className="text-sm font-semibold text-mango">{role}</p>
-                <p className="mt-1 text-sm text-muted">{focus}</p>
-              </div>
+                <figcaption className="mt-3">
+                  <p className="font-semibold leading-snug text-leaf-900">{name}</p>
+                  <p className="mt-1 text-sm leading-snug text-muted">{focus}</p>
+                </figcaption>
+              </figure>
             ))}
           </div>
           <p className="mx-auto mt-8 max-w-6xl px-4 text-sm text-muted sm:px-6">
@@ -419,7 +462,7 @@ export default function Home() {
               Tim kami bisa datang ke gudang Anda untuk demo di jalur konveyor yang sudah ada.
             </p>
             <a
-              href="mailto:halo@vleefruit.id?subject=Jadwal%20demo%20VleeFruit"
+              href="mailto:vleefruit@gmail.com?subject=Jadwal%20demo%20VleeFruit"
               className="mt-8 inline-block rounded-full bg-leaf-900 px-8 py-4 font-semibold text-cream transition hover:bg-leaf-950"
             >
               Hubungi kami
@@ -428,10 +471,10 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-leaf-950 px-4 pb-10 pt-14 text-leaf-200 sm:px-6">
+      <footer className="bg-forest px-4 pb-10 pt-14 text-leaf-200 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-sm">
-            <Logo light />
+            <Logo variant="footer" />
             <p className="mt-4 leading-relaxed">
               Alat sortir buah berbasis IoT, computer vision, dan dashboard web untuk industri hortikultura Indonesia.
             </p>
@@ -445,7 +488,7 @@ export default function Home() {
             </div>
             <div className="space-y-2">
               <p className="font-semibold text-cream">Kontak</p>
-              <a href="mailto:halo@vleefruit.id" className="block hover:text-mango">halo@vleefruit.id</a>
+              <a href="mailto:vleefruit@gmail.com" className="block hover:text-mango">vleefruit@gmail.com</a>
               <p>Jakarta, Indonesia</p>
             </div>
           </div>

@@ -5,6 +5,7 @@ import Logo from "./Logo";
 
 const links = [
   { href: "#cara-kerja", label: "Cara kerja" },
+  { href: "#prototipe", label: "Prototipe" },
   { href: "#deteksi", label: "Deteksi" },
   { href: "#dashboard", label: "Dashboard" },
   { href: "#harga", label: "Harga" },
@@ -21,7 +22,7 @@ export default function Navbar() {
           <Logo />
         </a>
 
-        <nav className="hidden items-center gap-7 text-[15px] font-medium text-leaf-900 md:flex">
+        <nav className="hidden items-center gap-7 text-[15px] font-medium text-leaf-900 lg:flex">
           {links.map((l) => (
             <a key={l.href} href={l.href} className="hover:text-mango">
               {l.label}
@@ -31,7 +32,7 @@ export default function Navbar() {
 
         <a
           href="#kontak"
-          className="hidden rounded-full border-[1.5px] border-leaf-800 px-5 py-2 text-sm font-semibold text-leaf-800 transition hover:bg-leaf-800 hover:text-cream md:inline-block"
+          className="hidden rounded-full border-[1.5px] border-leaf-800 px-5 py-2 text-sm font-semibold text-leaf-800 transition hover:bg-leaf-800 hover:text-cream lg:inline-block"
         >
           Jadwalkan demo
         </a>
@@ -39,7 +40,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="-mr-2 p-2 text-leaf-900 md:hidden"
+          className="-mr-2 p-2 text-leaf-900 lg:hidden"
           aria-expanded={open}
           aria-label={open ? "Tutup menu" : "Buka menu"}
         >
@@ -54,7 +55,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <nav className="border-t border-line bg-cream px-4 pb-5 pt-2 md:hidden">
+        <nav className="border-t border-line bg-cream px-4 pb-5 pt-2 lg:hidden">
           {links.map((l) => (
             <a
               key={l.href}
